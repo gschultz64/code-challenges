@@ -3,7 +3,7 @@ Programming problems for practice or interview prep
 
 
 ## Tribonacci Sequence - Code Wars
-(https://www.codewars.com/kata/556deca17c58da83c00002db/train/javascript)[https://www.codewars.com/kata/556deca17c58da83c00002db/train/javascript]
+[https://www.codewars.com/kata/556deca17c58da83c00002db/train/javascript](https://www.codewars.com/kata/556deca17c58da83c00002db/train/javascript)
 
 Well met with Fibonacci bigger brother, AKA Tribonacci.
 
