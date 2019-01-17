@@ -371,3 +371,53 @@ describe("Case 1", function() {
     Test.assertEquals(getCount("abracadabra"), 5);
   });
 });
+
+/* Given an array, find the int that appears an odd number of times.
+
+There will always be only one integer that appears an odd number of times. */
+
+function findOdd(A) {
+  const integers = {};
+  var result = 0;
+
+  // loop through array of numbers and store all occurrences in object "integers"
+  for (i = 0; i < A.length; i++) {
+    let current = A[i];
+    if (current in integers) {
+      integers[current] = integers[current] + 1;
+    } else {
+      integers[current] = 1;
+    }
+  }
+
+  // create array of all entries in the object "integers"
+  const intArray = Object.entries(integers);
+
+  // loop through the entries to find the odd int occurrence
+  for (i = 0; i < intArray.length; i++) {
+    let current = intArray[i];
+
+    if (current[1] % 2 === 0) {
+      console.log(`${current[1]} is even`);
+    } else {
+      result = current[0];
+      console.log(`${result} is odd`);
+    }
+  }
+  return parseInt(result);
+}
+
+// Tests
+function doTest(a, n) {
+  console.log("A = ", a);
+  console.log("n = ", n);
+  Test.assertEquals(findOdd(a), n);
+}
+Test.describe("Example tests", function() {
+  doTest([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5], 5);
+  doTest([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5], -1);
+  doTest([20, 1, 1, 2, 2, 3, 3, 5, 5, 4, 20, 4, 5], 5);
+  doTest([10], 10);
+  doTest([1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 1], 10);
+  doTest([5, 4, 3, 2, 1, 5, 4, 3, 2, 10, 10], 1);
+});
