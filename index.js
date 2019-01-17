@@ -311,7 +311,6 @@ A word (string) of length 0 < str < 1000 (In javascript you may get slightly mor
 The middle character(s) of the word represented as a string. */
 
 function getMiddle(s) {
-
   const wordArray = s.split("");
 
   // if length of array is divisible by 2, word is even
@@ -345,4 +344,30 @@ Test.describe("GetMiddle", function() {
   });
 });
 
+/* Return the number (count) of vowels in the given string.
 
+We will consider a, e, i, o, and u as vowels for this Kata.
+
+The input string will only consist of lower case letters and/or spaces. */
+
+function getCount(str) {
+  var vowelsCount = 0;
+  var vowels = ["a", "e", "i", "o", "u"];
+
+  var vowelArray = str.split("");
+
+  for (i = 0; i < vowelArray.length; i++) {
+    current = vowelArray[i];
+    if (vowels.includes(current)) {
+      vowelsCount++;
+    }
+  }
+  return vowelsCount;
+}
+
+// Tests
+describe("Case 1", function() {
+  it("should be defined", function() {
+    Test.assertEquals(getCount("abracadabra"), 5);
+  });
+});
