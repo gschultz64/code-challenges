@@ -1,10 +1,10 @@
 /* Code Challenges to prep for interviews */
 
-// Given an array of characters such as ['a','b','a','c','a']
-// Write a function that accepts such an array and returns
-// a map/dictionary that records the number of occurances of
-// each character
-// So for that example the map returned should be: [a:3, b:1, c:1]
+/* Given an array of characters such as ['a','b','a','c','a']
+Write a function that accepts such an array and returns
+a map/dictionary that records the number of occurances of
+each character
+So for that example the map returned should be: [a:3, b:1, c:1] */
 
 function countLetters(arr) {
   var result = {};
@@ -33,20 +33,19 @@ function countPairs(obj) {
 
 console.log(countPairs(object));
 
+/* Well met with Fibonacci bigger brother, AKA Tribonacci.
 
-// Well met with Fibonacci bigger brother, AKA Tribonacci.
+As the name may already reveal, it works basically like a Fibonacci, but summing the last 3 (instead of 2) numbers of the sequence to generate the next. And, worse part of it, regrettably I won't get to hear non-native Italian speakers trying to pronounce it :(
 
-// As the name may already reveal, it works basically like a Fibonacci, but summing the last 3 (instead of 2) numbers of the sequence to generate the next. And, worse part of it, regrettably I won't get to hear non-native Italian speakers trying to pronounce it :(
+So, if we are to start our Tribonacci sequence with [1, 1, 1] as a starting input (AKA signature), we have this sequence:
 
-// So, if we are to start our Tribonacci sequence with [1, 1, 1] as a starting input (AKA signature), we have this sequence:
+[1, 1 ,1, 3, 5, 9, 17, 31, ...]
+But what if we started with [0, 0, 1] as a signature? As starting with [0, 1] instead of [1, 1] basically shifts the common Fibonacci sequence by once place, you may be tempted to think that we would get the same sequence shifted by 2 places, but that is not the case and we would get:
 
-// [1, 1 ,1, 3, 5, 9, 17, 31, ...]
-// But what if we started with [0, 0, 1] as a signature? As starting with [0, 1] instead of [1, 1] basically shifts the common Fibonacci sequence by once place, you may be tempted to think that we would get the same sequence shifted by 2 places, but that is not the case and we would get:
+[0, 0, 1, 1, 2, 4, 7, 13, 24, ...]
+Well, you may have guessed it by now, but to be clear: you need to create a fibonacci function that given a signature array/list, returns the first n elements - signature included of the so seeded sequence.
 
-// [0, 0, 1, 1, 2, 4, 7, 13, 24, ...]
-// Well, you may have guessed it by now, but to be clear: you need to create a fibonacci function that given a signature array/list, returns the first n elements - signature included of the so seeded sequence.
-
-// Signature will always contain 3 numbers; n will always be a non-negative number; if n == 0, then return an empty array and be ready for anything else which is not clearly specified ;)
+Signature will always contain 3 numbers; n will always be a non-negative number; if n == 0, then return an empty array and be ready for anything else which is not clearly specified ;) */
 
 function tribonacci(signature, n) {
   //your code here
@@ -172,20 +171,19 @@ Test.describe("Basic tests", function() {
   ]);
 });
 
+/* Remove duplicate words
 
-// Remove duplicate words
+Your task is to remove all duplicate words from string, leaving only single (first) words entries.
 
-// Your task is to remove all duplicate words from string, leaving only single (first) words entries.
+Example:
 
-// Example:
+Input:
 
-// Input:
+'alpha beta beta gamma gamma gamma delta alpha beta beta gamma gamma gamma delta'
 
-// 'alpha beta beta gamma gamma gamma delta alpha beta beta gamma gamma gamma delta'
+Output:
 
-// Output:
-
-// 'alpha beta gamma delta'
+'alpha beta gamma delta' */
 
 function removeDuplicateWords(s) {
   var arr = s.split(" ");
@@ -213,21 +211,20 @@ Test.describe("Example tests", _ => {
   });
 });
 
+/* The museum of incredible dull things
+The museum of incredible dull things wants to get rid of some exhibitions. Miriam, the interior architect, comes up with a plan to remove the most boring exhibitions. She gives them a rating, and then removes the one with the lowest rating.
 
-// The museum of incredible dull things
-// The museum of incredible dull things wants to get rid of some exhibitions. Miriam, the interior architect, comes up with a plan to remove the most boring exhibitions. She gives them a rating, and then removes the one with the lowest rating.
+However, just as she finished rating all exhibitions, she's off to an important fair, so she asks you to write a program that tells her the ratings of the items after one removed the lowest one. Fair enough.
 
-// However, just as she finished rating all exhibitions, she's off to an important fair, so she asks you to write a program that tells her the ratings of the items after one removed the lowest one. Fair enough.
+Task
+Given an array of integers, remove the smallest value. Do not mutate the original array/list. If there are multiple elements with the same value, remove the one with a lower index. If you get an empty array/list, return an empty array/list.
 
-// Task
-// Given an array of integers, remove the smallest value. Do not mutate the original array/list. If there are multiple elements with the same value, remove the one with a lower index. If you get an empty array/list, return an empty array/list.
+Don't change the order of the elements that are left.
 
-// Don't change the order of the elements that are left.
-
-// Examples
-// removeSmallest([1,2,3,4,5]) = [2,3,4,5]
-// removeSmallest([5,3,2,1,4]) = [5,3,2,4]
-// removeSmallest([2,2,1,2,1]) = [2,2,2,1]
+Examples
+removeSmallest([1,2,3,4,5]) = [2,3,4,5]
+removeSmallest([5,3,2,1,4]) = [5,3,2,4]
+removeSmallest([2,2,1,2,1]) = [2,2,2,1] */
 
 function removeSmallest(numbers) {
   var result = numbers.slice(0);
@@ -291,6 +288,60 @@ Test.describe("removeSmallest", function() {
         `Wrong result for ${arr}`
       );
     }
+  });
+});
+
+/* You are going to be given a word. Your job is to return the middle character of the word. If the word's length is odd, return the middle character. If the word's length is even, return the middle 2 characters.
+
+#Examples:
+
+Kata.getMiddle("test") should return "es"
+
+Kata.getMiddle("testing") should return "t"
+
+Kata.getMiddle("middle") should return "dd"
+
+Kata.getMiddle("A") should return "A"
+#Input
+
+A word (string) of length 0 < str < 1000 (In javascript you may get slightly more than 1000 in some test cases due to an error in the test cases). You do not need to test for this. This is only here to tell you that you do not need to worry about your solution timing out.
+
+#Output
+
+The middle character(s) of the word represented as a string. */
+
+function getMiddle(s) {
+
+  const wordArray = s.split("");
+
+  // if length of array is divisible by 2, word is even
+  if (wordArray.length % 2 === 0) {
+    // return 2 middle letters
+    console.log(`The length of ${s} is even`);
+    let evenHalf = wordArray.length / 2;
+    return `${wordArray[evenHalf - 1]}${wordArray[evenHalf]}`;
+  }
+  // if word is only one letter long
+  else if (wordArray.length === 1) {
+    console.log(`There's only one letter in this word!`);
+    return s;
+  }
+  // else, word is odd
+  else {
+    // return middle letter
+    console.log(`The length of ${s} is odd`);
+    let oddHalf = Math.floor(wordArray.length / 2);
+    return wordArray[oddHalf];
+  }
+}
+
+// Tests
+Test.describe("GetMiddle", function() {
+  Test.it("Tests", function() {
+    Test.assertEquals(getMiddle("test"), "es");
+    Test.assertEquals(getMiddle("testing"), "t");
+    Test.assertEquals(getMiddle("middle"), "dd");
+    Test.assertEquals(getMiddle("A"), "A");
   });
 });
 
