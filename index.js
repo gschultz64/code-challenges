@@ -453,23 +453,23 @@ Note:
 If you are given an array with multiple answers, return the lowest correct index.
 An empty array should be treated like a 0 in this problem. */
 
-function findEvenIndex(arr)
-{
+function findEvenIndex(arr) {
   // function to get the sum of elements in array
   const reducer = (acc, cur) => acc + cur;
 
   //Code goes here!
   for (i = 0; i < arr.length; i++) {
-  
     var leftSum = arr.slice(0, i).reduce(reducer, 0);
     var rightSum = arr.slice(i + 1).reduce(reducer, 0);
     console.log(`iteration ${i}: leftSum ${leftSum}, rightSum ${rightSum}`);
 
     if (leftSum === rightSum) {
-      return n = i;
+      return (n = i);
     }
   }
+  return (n = -1);
 }
+
 // Tests
 Test.describe("FindEvenIndex", function() {
   Test.it("Tests", function() {
