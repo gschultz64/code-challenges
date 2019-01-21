@@ -628,3 +628,39 @@ function nbMonths(
 Test.assertSimilar(nbMonths(2000, 8000, 1000, 1.5), [6, 766]);
 Test.assertSimilar(nbMonths(12000, 8000, 1000, 1.5), [0, 4000]);
 Test.assertSimilar(nbMonths(8000, 8000, 1000, 1.5), [0, 0]);
+
+/* 
+Write a function called that takes a string of parentheses, and determines if the order of the parentheses is valid. The function should return true if the string is valid, and false if it's invalid.
+
+Examples
+"()"              =>  true
+")(()))"          =>  false
+"("               =>  false
+"(())((()())())"  =>  true
+Constraints
+0 <= input.length <= 100 */
+
+function validParentheses(parens) {
+  var counter = 0;
+  var arr = parens.split("");
+
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i] === "(") {
+      counter++;
+    } else if (arr[i] === ")") {
+      counter--;
+    }
+    if (counter < 0) {
+      return false;
+    }
+  }
+  if (counter === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Tests
+Test.assertEquals(validParentheses("()"), true);
+Test.assertEquals(validParentheses("())"), false);
