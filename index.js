@@ -546,3 +546,85 @@ Test.assertEquals(
   2,
   "characters may not be adjacent"
 );
+
+/* Let us begin with an example:
+
+A man has a rather old car being worth $2000. He saw a secondhand car being worth $8000. He wants to keep his old car until he can buy the secondhand one.
+
+He thinks he can save $1000 each month but the prices of his old car and of the new one decrease of 1.5 percent per month. Furthermore this percent of loss increases by 0.5 percent at the end of every two months. Our man finds it difficult to make all these calculations.
+
+Can you help him?
+
+How many months will it take him to save up enough money to buy the car he wants, and how much money will he have left over?
+
+Parameters and return of function:
+
+parameter (positive int, guaranteed) startPriceOld (Old car price)
+parameter (positive int, guaranteed) startPriceNew (New car price)
+parameter (positive int, guaranteed) savingperMonth 
+parameter (positive float or int, guaranteed) percentLossByMonth
+
+nbMonths(2000, 8000, 1000, 1.5) should return [6, 766] or (6, 766)
+where 6 is the number of months at the end of which he can buy the new car and 766 is the nearest integer to 766.158 (rounding 766.158 gives 766).
+
+Note:
+
+Selling, buying and saving are normally done at end of month. Calculations are processed at the end of each considered month but if, by chance from the start, the value of the old car is bigger than the value of the new one or equal there is no saving to be made, no need to wait so he can at the beginning of the month buy the new car:
+
+nbMonths(12000, 8000, 1000, 1.5) should return [0, 4000]
+nbMonths(8000, 8000, 1000, 1.5) should return [0, 0]
+We don't take care of a deposit of savings in a bank:-) */
+
+function nbMonths(
+  startPriceOld,
+  startPriceNew,
+  savingperMonth,
+  percentLossByMonth
+) {
+  var month = 0;
+  var balance = startPriceOld - startPriceNew;
+  var endPriceOld = startPriceOld;
+  var endPriceNew = startPriceNew;
+  var decimalLoss = percentLossByMonth / 100;
+
+  // he has enough money at beg of month
+  if (balance >= 0) {
+    return [month, Math.floor(balance)];
+  }
+
+  for (month; month < 100; month++) {
+    // percentLossByMonth increases at the end of every 2 months
+    if (month > 0 && month % 2 === 0) {
+      percentLossByMonth = percentLossByMonth + 0.5;
+    }
+
+    console.log(`percentLossByMonth: ${percentLossByMonth}`);
+
+    // old car price
+    endPriceOld = endPriceOld - endPriceOld * decimalLoss;
+    console.log(`old car price: ${endPriceOld}`);
+
+    // new car price
+    endPriceNew = endPriceNew - endPriceNew * decimalLoss;
+    console.log(`new car price: ${endPriceNew}`);
+
+    // total savings
+    let allSaving = savingperMonth * month;
+    console.log(`savings: ${allSaving}`);
+
+    // money left over
+    balance = Math.floor(allSaving + endPriceOld - endPriceNew);
+    console.log(`month: ${month} balance: ${balance}`);
+
+    // can he afford car?
+    // balance >= 0
+    if (balance >= 0) {
+      return [month, Math.floor(balance)];
+    }
+  }
+}
+
+// Tests
+Test.assertSimilar(nbMonths(2000, 8000, 1000, 1.5), [6, 766]);
+Test.assertSimilar(nbMonths(12000, 8000, 1000, 1.5), [0, 4000]);
+Test.assertSimilar(nbMonths(8000, 8000, 1000, 1.5), [0, 0]);
