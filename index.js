@@ -61,7 +61,7 @@ function tribonacci(signature, n) {
 }
 
 // Tests
-Test.describe("Basic tests", function() {
+Test.describe("Basic tests", function () {
   Test.assertSimilar(tribonacci([1, 1, 1], 10), [
     1,
     1,
@@ -230,7 +230,7 @@ function removeSmallest(numbers) {
   var result = numbers.slice(0);
   var lowestNumber = result[0];
   var lowestLoc = 0;
-  result.forEach(function(item, i) {
+  result.forEach(function (item, i) {
     console.log(`the smallest number is ${lowestNumber} at index ${lowestLoc}`);
     if (item < lowestNumber) {
       lowestNumber = item;
@@ -242,8 +242,8 @@ function removeSmallest(numbers) {
 }
 
 // Tests
-Test.describe("removeSmallest", function() {
-  Test.it("works for the examples", function() {
+Test.describe("removeSmallest", function () {
+  Test.it("works for the examples", function () {
     Test.assertSimilar(
       removeSmallest([1, 2, 3, 4, 5]),
       [2, 3, 4, 5],
@@ -262,7 +262,7 @@ Test.describe("removeSmallest", function() {
     Test.assertSimilar(removeSmallest([]), [], "Wrong result for []");
   });
 
-  Test.it("returns [] if the list has only one element", function() {
+  Test.it("returns [] if the list has only one element", function () {
     for (let i = 0; i < 10; ++i) {
       let x = ~~(Math.random() * 400);
       Test.assertSimilar(removeSmallest([x]), [], `Wrong result for ${[x]}`);
@@ -270,15 +270,14 @@ Test.describe("removeSmallest", function() {
   });
 
   function randomArray(length) {
-    return Array.from(
-      {
+    return Array.from({
         length: length
       },
       () => ~~(Math.random() * 400)
     );
   }
 
-  Test.it("returns a list that misses only one element", function() {
+  Test.it("returns a list that misses only one element", function () {
     for (let i = 0; i < 10; ++i) {
       let arr = randomArray(~~(Math.random() * 10) + 1);
       let l = arr.length;
@@ -335,8 +334,8 @@ function getMiddle(s) {
 }
 
 // Tests
-Test.describe("GetMiddle", function() {
-  Test.it("Tests", function() {
+Test.describe("GetMiddle", function () {
+  Test.it("Tests", function () {
     Test.assertEquals(getMiddle("test"), "es");
     Test.assertEquals(getMiddle("testing"), "t");
     Test.assertEquals(getMiddle("middle"), "dd");
@@ -366,8 +365,8 @@ function getCount(str) {
 }
 
 // Tests
-describe("Case 1", function() {
-  it("should be defined", function() {
+describe("Case 1", function () {
+  it("should be defined", function () {
     Test.assertEquals(getCount("abracadabra"), 5);
   });
 });
@@ -413,7 +412,7 @@ function doTest(a, n) {
   console.log("n = ", n);
   Test.assertEquals(findOdd(a), n);
 }
-Test.describe("Example tests", function() {
+Test.describe("Example tests", function () {
   doTest([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5], 5);
   doTest([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5], -1);
   doTest([20, 1, 1, 2, 2, 3, 3, 5, 5, 4, 20, 4, 5], 5);
@@ -471,8 +470,8 @@ function findEvenIndex(arr) {
 }
 
 // Tests
-Test.describe("FindEvenIndex", function() {
-  Test.it("Tests", function() {
+Test.describe("FindEvenIndex", function () {
+  Test.it("Tests", function () {
     Test.assertEquals(
       findEvenIndex([1, 2, 3, 4, 3, 2, 1]),
       3,
@@ -664,3 +663,48 @@ function validParentheses(parens) {
 // Tests
 Test.assertEquals(validParentheses("()"), true);
 Test.assertEquals(validParentheses("())"), false);
+
+
+/* An anagram is a word, phrase, or sentence formed from another by rearranging its letters. An example of this is "angel", which is an anagram of "glean".
+
+Given an array of words write a method that will return the total number of different anagrams inside that array. You can only count once the anagram between 2 words. For instance, in the previous example we show "angel" and "glean" as anagrams, but you don't have to count the opposite between "glean" and "angel".
+
+Some examples:
+
+There are 2 anagrams in the array ["dell", "ledl", "abc", "cba"]
+There are 7 anagrams in the array ["dell", "ledl", "abc", "cba", "bca", "bac"] */
+
+function anagramCounter(wordsArray) {
+  var anagrams = {};
+  var itemCount = 0;
+
+  function countPairs(itemCount) {
+    var pairCount = 0;
+    for (var i = itemCount - 1; i > 0; i--) {
+      pairCount += i;
+    }
+    return pairCount;
+  }
+
+  wordsArray.forEach(function (item) {
+    var itemArray = item.split("").sort();
+    if (itemArray in anagrams) {
+      anagrams[itemArray] += 1;
+    } else {
+      anagrams[itemArray] = 1;
+    }
+  });
+
+  for (var key in anagrams) {
+    itemCount += countPairs(anagrams[key]);
+  }
+
+  return itemCount;
+}
+
+describe("Function anagramCounter", function () {
+  Test.assertEquals(typeof (anagramCounter([])), "number", "Is not returning a number");
+  Test.assertEquals(anagramCounter(['dell', 'ledl', 'abc', 'cba']), 2, "This should be 2");
+  Test.assertEquals(anagramCounter(['dell', 'ledl', 'lled', 'cba']), 3, "This should be 3");
+  Test.assertEquals(anagramCounter(['dell', 'ledl', 'abc', 'cba', 'bca', 'bac', 'cab']), 11, "This should be 11");
+});
