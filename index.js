@@ -61,7 +61,7 @@ function tribonacci(signature, n) {
 }
 
 // Tests
-Test.describe("Basic tests", function () {
+Test.describe("Basic tests", function() {
   Test.assertSimilar(tribonacci([1, 1, 1], 10), [
     1,
     1,
@@ -230,7 +230,7 @@ function removeSmallest(numbers) {
   var result = numbers.slice(0);
   var lowestNumber = result[0];
   var lowestLoc = 0;
-  result.forEach(function (item, i) {
+  result.forEach(function(item, i) {
     console.log(`the smallest number is ${lowestNumber} at index ${lowestLoc}`);
     if (item < lowestNumber) {
       lowestNumber = item;
@@ -242,8 +242,8 @@ function removeSmallest(numbers) {
 }
 
 // Tests
-Test.describe("removeSmallest", function () {
-  Test.it("works for the examples", function () {
+Test.describe("removeSmallest", function() {
+  Test.it("works for the examples", function() {
     Test.assertSimilar(
       removeSmallest([1, 2, 3, 4, 5]),
       [2, 3, 4, 5],
@@ -262,7 +262,7 @@ Test.describe("removeSmallest", function () {
     Test.assertSimilar(removeSmallest([]), [], "Wrong result for []");
   });
 
-  Test.it("returns [] if the list has only one element", function () {
+  Test.it("returns [] if the list has only one element", function() {
     for (let i = 0; i < 10; ++i) {
       let x = ~~(Math.random() * 400);
       Test.assertSimilar(removeSmallest([x]), [], `Wrong result for ${[x]}`);
@@ -270,14 +270,15 @@ Test.describe("removeSmallest", function () {
   });
 
   function randomArray(length) {
-    return Array.from({
+    return Array.from(
+      {
         length: length
       },
       () => ~~(Math.random() * 400)
     );
   }
 
-  Test.it("returns a list that misses only one element", function () {
+  Test.it("returns a list that misses only one element", function() {
     for (let i = 0; i < 10; ++i) {
       let arr = randomArray(~~(Math.random() * 10) + 1);
       let l = arr.length;
@@ -334,8 +335,8 @@ function getMiddle(s) {
 }
 
 // Tests
-Test.describe("GetMiddle", function () {
-  Test.it("Tests", function () {
+Test.describe("GetMiddle", function() {
+  Test.it("Tests", function() {
     Test.assertEquals(getMiddle("test"), "es");
     Test.assertEquals(getMiddle("testing"), "t");
     Test.assertEquals(getMiddle("middle"), "dd");
@@ -365,8 +366,8 @@ function getCount(str) {
 }
 
 // Tests
-describe("Case 1", function () {
-  it("should be defined", function () {
+describe("Case 1", function() {
+  it("should be defined", function() {
     Test.assertEquals(getCount("abracadabra"), 5);
   });
 });
@@ -412,7 +413,7 @@ function doTest(a, n) {
   console.log("n = ", n);
   Test.assertEquals(findOdd(a), n);
 }
-Test.describe("Example tests", function () {
+Test.describe("Example tests", function() {
   doTest([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5], 5);
   doTest([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5], -1);
   doTest([20, 1, 1, 2, 2, 3, 3, 5, 5, 4, 20, 4, 5], 5);
@@ -470,8 +471,8 @@ function findEvenIndex(arr) {
 }
 
 // Tests
-Test.describe("FindEvenIndex", function () {
-  Test.it("Tests", function () {
+Test.describe("FindEvenIndex", function() {
+  Test.it("Tests", function() {
     Test.assertEquals(
       findEvenIndex([1, 2, 3, 4, 3, 2, 1]),
       3,
@@ -664,7 +665,6 @@ function validParentheses(parens) {
 Test.assertEquals(validParentheses("()"), true);
 Test.assertEquals(validParentheses("())"), false);
 
-
 /* An anagram is a word, phrase, or sentence formed from another by rearranging its letters. An example of this is "angel", which is an anagram of "glean".
 
 Given an array of words write a method that will return the total number of different anagrams inside that array. You can only count once the anagram between 2 words. For instance, in the previous example we show "angel" and "glean" as anagrams, but you don't have to count the opposite between "glean" and "angel".
@@ -686,7 +686,7 @@ function anagramCounter(wordsArray) {
     return pairCount;
   }
 
-  wordsArray.forEach(function (item) {
+  wordsArray.forEach(function(item) {
     var itemArray = item.split("").sort();
     if (itemArray in anagrams) {
       anagrams[itemArray] += 1;
@@ -702,9 +702,95 @@ function anagramCounter(wordsArray) {
   return itemCount;
 }
 
-describe("Function anagramCounter", function () {
-  Test.assertEquals(typeof (anagramCounter([])), "number", "Is not returning a number");
-  Test.assertEquals(anagramCounter(['dell', 'ledl', 'abc', 'cba']), 2, "This should be 2");
-  Test.assertEquals(anagramCounter(['dell', 'ledl', 'lled', 'cba']), 3, "This should be 3");
-  Test.assertEquals(anagramCounter(['dell', 'ledl', 'abc', 'cba', 'bca', 'bac', 'cab']), 11, "This should be 11");
+describe("Function anagramCounter", function() {
+  Test.assertEquals(
+    typeof anagramCounter([]),
+    "number",
+    "Is not returning a number"
+  );
+  Test.assertEquals(
+    anagramCounter(["dell", "ledl", "abc", "cba"]),
+    2,
+    "This should be 2"
+  );
+  Test.assertEquals(
+    anagramCounter(["dell", "ledl", "lled", "cba"]),
+    3,
+    "This should be 3"
+  );
+  Test.assertEquals(
+    anagramCounter(["dell", "ledl", "abc", "cba", "bca", "bac", "cab"]),
+    11,
+    "This should be 11"
+  );
+});
+
+/* Pete likes to bake some cakes. He has some recipes and ingredients. Unfortunately he is not good in maths. 
+Can you help him to find out, how many cakes he could bake considering his recipes?
+
+Write a function cakes(), which takes the recipe (object) and the available ingredients (also an object) and 
+returns the maximum number of cakes Pete can bake (integer). 
+For simplicity there are no units for the amounts (e.g. 1 lb of flour or 200 g of sugar are simply 1 or 200). 
+Ingredients that are not present in the objects, can be considered as 0. */
+
+function cakes(recipe, available) {
+  var maxCakes = 0;
+  var required = 0;
+  var cakeItems = [];
+
+  var availableItems = Object.entries(available);
+  var recipeItems = Object.entries(recipe);
+
+  function compareNumbers(a, b) {
+    return a - b;
+  }
+
+  if (recipeItems.length <= availableItems.length) {
+    for (key in recipe) {
+      required = recipe[key];
+
+      if (required === 0) {
+        return (maxCakes = 0);
+      }
+
+      for (i = 0; i < availableItems.length; i++) {
+        if (availableItems[i][0] === key) {
+          if (availableItems[i][1] >= required) {
+            let num = Math.floor(availableItems[i][1] / required);
+            cakeItems.push(num);
+            cakeItems.sort(compareNumbers);
+            console.log(cakeItems);
+          } else {
+            return maxCakes;
+          }
+        }
+      }
+    }
+    maxCakes = cakeItems[0];
+  }
+
+  return maxCakes;
+}
+
+// Tests
+describe("description example", function() {
+  var recipe, available;
+
+  it("pass example tests", function() {
+    recipe = { flour: 500, sugar: 200, eggs: 1 };
+    available = { flour: 1200, sugar: 1200, eggs: 5, milk: 200 };
+    Test.assertEquals(
+      cakes(recipe, available),
+      2,
+      "Wrong result for example #1"
+    );
+
+    recipe = { apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100 };
+    available = { sugar: 500, flour: 2000, milk: 2000 };
+    Test.assertEquals(
+      cakes(recipe, available),
+      0,
+      "Wrong result for example #2"
+    );
+  });
 });
